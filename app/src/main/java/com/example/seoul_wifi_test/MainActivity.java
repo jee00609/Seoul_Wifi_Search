@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     //char[] key = new char[]{'7','a','6','9','5','1','4','8','4','3','6','a','6','5','6','5','3','8','3','3','4','8','7','6','6','1','7','8','6','4'};
 
-    String key = "서울 api 키값";
+    String key = "key값";
     String data;
     XmlPullParser xpp;
 
@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                         // 문자열 뒤에 \n 같이 온전한 정수형이 들어가지 않기 때문이다.
                         //해결법 substring으로 나눠서 \n 을 뺀다.
                         //https://m.blog.naver.com/PostView.nhn?blogId=sseyoung513&logNo=221079088209&proxyReferer=https:%2F%2Fwww.google.com%2F
+
+                        System.out.println("ERROR THIS IS LOCATION NUM"+num);
 
                         location_num = Integer.parseInt(num.substring(0, num.length()-1));
                         System.out.println("num.length : "+ num.length());
@@ -174,7 +176,9 @@ public class MainActivity extends AppCompatActivity {
                     case XmlPullParser.START_TAG:
                         tag= xpp.getName();//테그 이름 얻어오기
 
-                        if(tag.equals("PublicWiFiPlaceInfo")) System.out.println("ok"); // 첫번째 검색결과
+                        if(tag.equals("PublicWiFiPlaceInfo"))
+                            System.out.println("ok"); // 첫번째 검색결과
+
 
                         else if(tag.equals("list_total_count")){
                             xpp.next();
@@ -203,6 +207,14 @@ public class MainActivity extends AppCompatActivity {
         }
 
         System.out.println("list_total_count : "+buffer_num.toString());
+        System.out.println("list_total_buffer.length"+buffer_num.length());
+
+        if(buffer_num.length() == 0){
+            System.out.println("list total Here is if");
+            buffer_num.delete(0,buffer_num.length());
+            buffer_num.append("0");
+            buffer_num.append("\n");
+        }
 
         return buffer_num.toString(); // 파싱 다 종료 후 StringBuffer 문자열 객체 반환
 

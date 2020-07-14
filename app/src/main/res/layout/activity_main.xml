@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="25dp"
-                android:text="강남구,중구"
+                android:text="강남구,중구,파주시"
                 android:layout_weight="4"/>
 
             <Button
