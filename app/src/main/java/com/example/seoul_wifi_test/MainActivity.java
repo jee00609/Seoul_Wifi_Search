@@ -22,9 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     TextView text;
 
-    //char[] key = new char[]{'7','a','6','9','5','1','4','8','4','3','6','a','6','5','6','5','3','8','3','3','4','8','7','6','6','1','7','8','6','4'};
-
-    String key = "key값";
+    String key = "key 값";
     String data;
     XmlPullParser xpp;
 
@@ -269,8 +267,8 @@ public class MainActivity extends AppCompatActivity {
 
                         if(tag.equals("row")) ;// 첫번째 검색결과
 
-                        else if(tag.equals("PLACE_ADDR_SUB")){
-                            buffer.append("주소 이름 자세히 : ");
+                        else if(tag.equals("PLACE_ADDR")){
+                            buffer.append("설치 주소 : ");
                             xpp.next();
                             buffer.append(xpp.getText());//category 요소의 TEXT 읽어와서 문자열버퍼에 추가
                             buffer.append("\n");//줄바꿈 문자 추가
