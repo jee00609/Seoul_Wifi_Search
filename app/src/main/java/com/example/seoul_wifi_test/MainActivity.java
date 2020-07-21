@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     TextView text;
 
-    String key = "key값";
+    String key = "키값";
     String data;
     XmlPullParser xpp;
 
@@ -85,9 +85,22 @@ public class MainActivity extends AppCompatActivity {
                             //검색 시작!
                             runOnUiThread(new Runnable() {
 
+                                //2020-07-21 카카오톡 맵과 병합할 때 맵포인트를 사용하기 위해 텍스트 split 가능 여부 확인 및 변경
                                 @Override
                                 public void run() {
-                                    text.setText(data);
+                                    text.setText("");
+
+                                    final String save_data = data.toString();
+                                    String[] split = split = save_data.split("\n");
+
+                                    for(int i=0;i<split.length;i++){
+                                        String[] splitresult = split[i].split(",");
+                                        for(int j=0; j<splitresult.length;j++) {
+//                                            System.out.println("splits" + j + " = " + splitresult[j]);
+                                            text.append(splitresult[j]);
+                                        }
+                                        text.append("\n");
+                                    }
                                 }
                             });
 
@@ -121,20 +134,24 @@ public class MainActivity extends AppCompatActivity {
 
                             //검색 시작!
                             runOnUiThread(new Runnable() {
-
+                                //2020-07-21 카카오톡 맵과 병합할 때 맵포인트를 사용하기 위해 텍스트 split 가능 여부 확인 및 변경
                                 @Override
                                 public void run() {
 
-                                    final String save_data = input_data.toString();
-                                    String[] split = save_data.split("\n");
-                                    for(int i=0;i<split.length;i++)
-                                        System.out.println("split[i] "+split[i]);
-
                                     text.setText("");
-                                    for(int i=0;i<split.length;i++) {
-                                        text.append(split[i]);
+
+                                    final String save_data = input_data.toString();
+                                    String[] split = split = save_data.split("\n");
+
+                                    for(int i=0;i<split.length;i++){
+                                        String[] splitresult = split[i].split(",");
+                                        for(int j=0; j<splitresult.length;j++) {
+                                            System.out.println("splits" + j + " = " + splitresult[j]);
+                                            text.append(splitresult[j]);
+                                        }
                                         text.append("\n");
                                     }
+
                                 }
                             });
 
