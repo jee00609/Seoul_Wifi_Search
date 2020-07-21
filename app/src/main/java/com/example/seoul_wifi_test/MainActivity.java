@@ -15,6 +15,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     TextView text;
 
-    String key = "key 값";
+    String key = "key값";
     String data;
     XmlPullParser xpp;
 
@@ -114,12 +116,25 @@ public class MainActivity extends AppCompatActivity {
 
                             }while(index_num<location_num);
 
+                            List<Wifi> wifiList = new ArrayList<>();
+                            Wifi wifiItem = new Wifi();
+
                             //검색 시작!
                             runOnUiThread(new Runnable() {
 
                                 @Override
                                 public void run() {
-                                    text.setText(input_data);
+
+                                    final String save_data = input_data.toString();
+                                    String[] split = save_data.split("\n");
+                                    for(int i=0;i<split.length;i++)
+                                        System.out.println("split[i] "+split[i]);
+
+                                    text.setText("");
+                                    for(int i=0;i<split.length;i++) {
+                                        text.append(split[i]);
+                                        text.append("\n");
+                                    }
                                 }
                             });
 
@@ -268,22 +283,28 @@ public class MainActivity extends AppCompatActivity {
                         if(tag.equals("row")) ;// 첫번째 검색결과
 
                         else if(tag.equals("PLACE_ADDR")){
-                            buffer.append("설치 주소 : ");
+                            //buffer.append("설치 주소 : ");
                             xpp.next();
                             buffer.append(xpp.getText());//category 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append("\n");//줄바꿈 문자 추가
+                            buffer.append(",");//줄바꿈 문자 추가
                         }
                         else if(tag.equals("INSTL_X")){
-                            buffer.append("X좌표 :");
+                            //buffer.append("X좌표 :");
                             xpp.next();
                             buffer.append(xpp.getText());//description 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append("\n");//줄바꿈 문자 추가
+                            buffer.append(",");//줄바꿈 문자 추가
                         }
                         else if(tag.equals("INSTL_Y")){
-                            buffer.append("Y좌표 :");
+                            //buffer.append("Y좌표 :");
                             xpp.next();
                             buffer.append(xpp.getText());//telephone 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append("\n");//줄바꿈 여기가 하나의 row 마지막이라 보기 쉽게 하기 위해 \n 추가
+                            buffer.append(",");//줄바꿈 여기가 하나의 row 마지막이라 보기 쉽게 하기 위해 \n 추가
+                        }
+                        else if(tag.equals("OBJECTID")){
+                            //buffer.append("와이파이 이름 : ");
+                            xpp.next();
+                            buffer.append(xpp.getText());//category 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                            //buffer.append(",");//줄바꿈 문자 추가
                         }
 
 
