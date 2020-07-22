@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     TextView text;
 
-    String key = "키값";
+    String key = "key값";
     String data;
     XmlPullParser xpp;
 
@@ -77,7 +77,14 @@ public class MainActivity extends AppCompatActivity {
                         System.out.println("num.length : "+ num.length());
                         System.out.println("location_num : "+location_num);
 
-                        if(location_num < api_limit){ //1000개 이하일 때
+                        //2020-07-21 검색결과 0일때 break 하도록 추가
+                        if(location_num == 0){
+                            System.out.println("Thread Stop");
+                            return;
+                        }
+
+
+                        else if(location_num < api_limit){ //1000개 이하일 때
                             System.out.println("while no");
                             String start_num_String = "1";
                             data= getXmlData(start_num_String,num); // 하단의 getData 메소드를 통해 데이터를 파싱
@@ -94,11 +101,12 @@ public class MainActivity extends AppCompatActivity {
                                     String[] split = split = save_data.split("\n");
 
                                     for(int i=0;i<split.length;i++){
-                                        String[] splitresult = split[i].split(",");
+                                        String[] splitresult = split[i].split("*");
                                         for(int j=0; j<splitresult.length;j++) {
 //                                            System.out.println("splits" + j + " = " + splitresult[j]);
                                             text.append(splitresult[j]);
                                         }
+                                        System.out.println("splitss"+splitresult[0]);
                                         text.append("\n");
                                     }
                                 }
@@ -239,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("list_total_count : "+buffer_num.toString());
         System.out.println("list_total_buffer.length"+buffer_num.length());
 
+        // 검색 결과가 0일때 0이라는 결과값을 보내도록 변경
         if(buffer_num.length() == 0){
             System.out.println("list total Here is if");
             buffer_num.delete(0,buffer_num.length());
@@ -303,19 +312,19 @@ public class MainActivity extends AppCompatActivity {
                             //buffer.append("설치 주소 : ");
                             xpp.next();
                             buffer.append(xpp.getText());//category 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append(",");//줄바꿈 문자 추가
+                            buffer.append("*");//줄바꿈 문자 추가
                         }
                         else if(tag.equals("INSTL_X")){
                             //buffer.append("X좌표 :");
                             xpp.next();
                             buffer.append(xpp.getText());//description 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append(",");//줄바꿈 문자 추가
+                            buffer.append("*");//줄바꿈 문자 추가
                         }
                         else if(tag.equals("INSTL_Y")){
                             //buffer.append("Y좌표 :");
                             xpp.next();
                             buffer.append(xpp.getText());//telephone 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append(",");//줄바꿈 여기가 하나의 row 마지막이라 보기 쉽게 하기 위해 \n 추가
+                            buffer.append("*");//줄바꿈 여기가 하나의 row 마지막이라 보기 쉽게 하기 위해 \n 추가
                         }
                         else if(tag.equals("OBJECTID")){
                             //buffer.append("와이파이 이름 : ");
