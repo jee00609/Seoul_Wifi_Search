@@ -4,6 +4,10 @@
 
 서울 와이파이 검색 api 업데이트 버전입니다.
 
+## 구동 화면
+
+![구동화면](https://jee00609.github.io/assets/images/2020-07-26-success.jpg)
+
 ## 문제점
 
 
@@ -20,4 +24,4 @@
 
 ## 현재 단계
 
-[공공데이터 자료들을 카카오톡 맵 마커로 찍기(90퍼 완성)](https://jee00609.github.io//android/KakaoMap-With-SeoulAPI/)
+[공공데이터 자료들을 카카오톡 맵 마커로 찍기](https://jee00609.github.io//android/KakaoMap-With-SeoulAPI/)
